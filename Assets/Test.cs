@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UniRx;
 
 public class Test : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class Test : MonoBehaviour
         sample.field2 = 15f;
         sample.field3 = new CopySample();
         sample.field3.field1 = 123;
+        sample.field4 = new ReactiveProperty<int>();
+        sample.field4.Value = 1;
+
+        sample.field4.Subscribe((int i) => { Debug.Log("field4 is observed : " + i); });
 
         CopySample3 copied = sample.DeepCopy();
 
@@ -61,6 +66,7 @@ public class Test : MonoBehaviour
 
         copied.field1 = 100;
         copied.field2 = 30f;
+        copied.field4.Value = 11;
         sample.field3.field1 = 321;
 
         Debug.Log("Value Changed!!!!!");

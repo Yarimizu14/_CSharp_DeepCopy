@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UniRx;
 
 [Serializable]
 public class CopySample3
@@ -22,8 +23,26 @@ public class CopySample3
 
     public CopySample field3;
 
+    public ReactiveProperty<int> field4;
+
     public override string ToString()
     {
-        return "field1 : " + this.field1 + " field2 : " + _field2 + " field3 : " + this.field3.ToString();
+        string s = "field1 : " + this.field1 + " field2 : " + _field2;
+
+        if (this.field3 != null)
+        {
+            s += " field3 : " + this.field3.ToString();
+        } else {
+            s += " field3 : null ";
+        }
+
+        if (this.field4 != null)
+        {
+            s += " field4 : " + this.field4.Value;
+        } else {
+            s += " field4 : null ";
+        }
+
+        return s;
     }
 }
